@@ -1,7 +1,8 @@
 
 $(function() 
 {
-	$SqlSrvCon = 'http://webserver1.no-ip.org/server/sqlsrv/sql.php';
+	//$SqlSrvCon = 'http://webserver1.no-ip.org/server/sqlsrv/sql.php';
+	$SqlSrvCon = 'http://10.0.0.6/server/sqlsrv/sql.php';
 	//$SqlSrvCon = 'http://localhost/server/sqlsrv/sql.php';
 
 	//$SqlSrvCon = 'http://localhost/server/mysql/sql.php';
@@ -382,6 +383,12 @@ $(function()
 	        alert("Error al cargar los datos ajax!!");
 	    }
 	};
+
+
+$(document).keypress(function(e) {
+ //alert( e.which );
+});
+
 
 	//...............................................................................................
 	//FUNCION QUE MANEJA LOS CALCULOS Y ESTADOS DE LOS CHECK EN EL FORM INGRESO
