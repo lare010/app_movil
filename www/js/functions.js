@@ -19,6 +19,10 @@ $(function()
 		var $zona    = '';
 
 
+$(document).keypress(function( e ) {
+	alert(e.which)
+ 
+});
 
 	//...............................................................................................	
 	//FUNCION QUE HACE LOGIN AL USUARIO		
