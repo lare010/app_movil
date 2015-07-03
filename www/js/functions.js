@@ -386,7 +386,7 @@ $(function()
 
 
 $(document).keypress(function(e) {
- alert( e.which );
+ //alert( e.which );
 });
 
 
