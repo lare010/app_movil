@@ -384,12 +384,6 @@ $(function()
 	    }
 	};
 
-
-$(document).keypress(function(e) {
- //alert( e.which );
-});
-
-
 	//...............................................................................................
 	//FUNCION QUE MANEJA LOS CALCULOS Y ESTADOS DE LOS CHECK EN EL FORM INGRESO
 
