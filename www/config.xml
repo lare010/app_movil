@@ -4,16 +4,16 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.helloworld"
-        version   = "1.0.0">
+        version   = "1.0.2">
 
-    <name>Hello World</name>
+    <name>SAN MOVIL</name>
 
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Aplicacion para el manejo de cobros de prestamos.
     </description>
 
-    <author href="http://phonegap.com" email="support@phonegap.com">
-        PhoneGap Team
+    <author href="http://lyrstudios.com" email="info@lyrstudios.com">
+        Ing. Luis Reyes
     </author>
 
     <!--
