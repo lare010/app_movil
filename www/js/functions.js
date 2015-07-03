@@ -2,7 +2,6 @@
 $(function() 
 {
 	$SqlSrvCon = 'http://webserver1.no-ip.org/server/sqlsrv/sql.php';
-	//$SqlSrvCon = 'http://10.0.0.6/server/sqlsrv/sql.php';
 	//$SqlSrvCon = 'http://localhost/server/sqlsrv/sql.php';
 
 	//$SqlSrvCon = 'http://localhost/server/mysql/sql.php';

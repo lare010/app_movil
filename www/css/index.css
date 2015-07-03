@@ -97,10 +97,6 @@ float: right;
         margin:-24px 0px 0px -198px;  /* offset vertical: half of image height */
                                       /* offset horizontal: half of image width and text area width */
     }
-
-    .flogin{
-        border: 2px dashed;
-    }
 }
 
 h1 {
