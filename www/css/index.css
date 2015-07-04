@@ -31,6 +31,19 @@ body {
     text-transform:uppercase;
 }
 
+.ui-dialog-contain {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 92.5%;
+    max-width: 500px;
+    height: 408px;
+    margin: auto;
+}
+
+
 .menu-movile {
     top: 5px;
     left:8px;
@@ -108,7 +121,7 @@ h1 {
     text-align:center;
 }
 
-h2 {
+.enlinea {
     font-size:24px;
     font-weight:bold;
     margin:15px 0px -11px 0px;

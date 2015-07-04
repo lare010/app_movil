@@ -15,19 +15,20 @@
 <body>
 	<!--.................... HOME .....................-->
 
-    <div data-role="page" id="home" data-dialog="true" data-close-btn="none" >
+    <div data-role="page" id="home" data-dialog="true" data-close-btn="none" data-position-to="window">
         <div data-role="header">
-            <h1>Form. Login</h1> 
+            <h1><b>Form. Login</b></h1> 
         </div>
 
         <div data-role="main" class="ui-content">
 	        <form  onsubmit="event.preventDefault();">
-	        	<label for="username"><b>Usuario:</b></label>
-	            <input type="text" class="login" name="usuario" id="usuario" placeholder="Usuario" value="">
-	        	<label for="username"><b>Contraseña:</b></label>
-	            <input type="password" class="login" name="password" id="password" placeholder="contraseña" autocomplete="off" value="">
+	        	<label for="usuario"><b>Usuario:</b></label>
+	            <input type="text" class="login" name="usuario" id="usuario" placeholder="Usuario" value="" tabindex="1">
+	        	<label for="password"><b>Contraseña:</b></label>
+	            <input type="password" class="login" name="password" id="password" placeholder="contraseña" autocomplete="off" value="" tabindex="2">
             	<br/>
-            	<input id="login"  type="button"  data-icon="check" data-iconpos="right" value="Aceptar">
+            	<input id="loginbtn"  type="button"  data-icon="check" data-iconpos="right" value="Aceptar" tabindex="3">
+
 	        </form> 
             
 
@@ -53,7 +54,7 @@
                 <li><a href="#home" data-transition="slide">Salir del Sistema</a></li> 
             </ul>          
             <div class="app">
-                <h2>San Mobile</h2>
+                <h2 class="enlinea">San Mobile</h2>
                 <div id="deviceready" class="blink">
                     <p class="event listening">Dispositivo Fuera de Linea</p>
                     <p class="event received">Dispositivo En Linea</p>
@@ -70,7 +71,7 @@
     <div data-role="page" id="resumencxc">
         <div data-role="header" data-position="fixed">
             <a href="#menu" data-transition="slide" data-direction="reverse" class=" ui-shadow ui-btn ui-corner-all ui-btn-a menu-movile"></a>
-        	<h1>Cxc Clientes</h1> 
+        	<h1><b>Cxc Clientes</b></h1> 
 	   		<a href="#" id="btnCpendiente" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext">cargar</a>
         </div>
 
@@ -90,7 +91,7 @@
     <div data-role="page" id="ingresos">
         <div data-role="header" data-position="fixed">
             <a href="#menu" data-transition="slide" data-direction="reverse" class=" ui-shadow ui-btn ui-corner-all ui-btn-a menu-movile"></a>
-        	<h1>INGRESOS</h1> 
+        	<h1><b>INGRESOS</b></h1> 
             <a href="#busq_cliente" id="frmBusqCliente" data-icon="search" data-iconpos="notext" ></a>          
             <a href="#" id="printrecibo" class="btnprint ui-shadow ui-btn ui-icon-save ui-corner-all ui-btn-a "></a>         
         </div>

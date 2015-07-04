@@ -1,7 +1,8 @@
 
 $(function() 
 {
-	$SqlSrvCon = 'http://webserver1.no-ip.org/server/sqlsrv/sql.php';
+	//$SqlSrvCon = 'http://webserver1.no-ip.org/server/sqlsrv/sql.php';
+	$SqlSrvCon = 'http://192.168.1.6/server/sqlsrv/sql.php';
 	//$SqlSrvCon = 'http://localhost/server/sqlsrv/sql.php';
 
 	//$SqlSrvCon = 'http://localhost/server/mysql/sql.php';
@@ -16,17 +17,151 @@ $(function()
 		var $asaldo  = 0;   //variable que controla el total a pagar
 		var $tiempoC = 0;
 		var ArrCheck = []; //array que guarda los datos de cada check pulsado
-		var $zona    = '';
+		var $zona    = '002';
 
 
-$(document).keypress(function( e ) {
-	alert(e.which)
+	//...............................................................................................		
+	/*FUNCION QUE RELLENA DE CEROS LOS CAMPOS*/
+	function ceros(numero,ceros) 
+	{
+		dif = ceros - numero.length; 
+		insertar=0;
+		for(m=1; m < dif; m++)
+		{ 		  
+		  insertar += '0';
+		} 			
+	  	return insertar += numero; 
+	}
+
+	/*FUNCION QUE QUITA LA COMA A LOS TOTALES*/
+
+	function quitcoma_num(valor)
+	{
+	    var busca = ",";
+	 	var reemplaza = "";
+	 	while (valor.toString().indexOf(busca) != -1)
+	    	valor = valor.toString().replace(busca,reemplaza);
+	  	return valor;
+	}
+
+	//...............................................................................................		
+	//FUNCION QUE DA FORMATO A LOS TOTALES*/
+    function format_num(valor)
+    {
+      	var nuevo_numero = new oNumero(valor);
+   		//alert(nuevo_numero.formato(2, true));
+   		return 	nuevo_numero.formato(2, true);
+    }
+    
+    function oNumero(numero)
+    {
+    	//Propiedades 
+        this.valor = numero || 0
+        this.dec = -1;
  
-});
+        //Métodos 
+    	this.formato = numFormat;
+    	this.ponValor = ponValor;
+ 
+       //Definición de los métodos
+      	function ponValor(cad) 
+      	{
+        	if (cad =='-' || cad=='+') return
+        	if (cad.length ==0) return
+        	if (cad.indexOf('.') >=0)
+            	this.valor = parseFloat(cad);
+         	else
+            	this.valor = parseInt(cad);
+      	} 
+ 
+      	function numFormat(dec, miles) 
+      	{
+        	var num = this.valor, signo=3, expr;
+        	var cad = ""+this.valor;
+        	var ceros = "", pos, pdec, i;
+        	for (i=0; i < dec; i++)
+        	{
+            	ceros += '0';
+         	}
+        	pos = cad.indexOf('.')
+        	
+        	if (pos < 0) {
+            	cad = cad+"."+ceros;
+         	} 
+         	else 
+         	{
+            	pdec = cad.length - pos -1;
+ 
+            	if (pdec <= dec) 
+            	{
+                	for (i=0; i< (dec-pdec); i++) 
+                	{
+                		cad += '0';
+                	}
+            	} 
+            	else 
+            	{
+               		num = num*Math.pow(10, dec);
+               		num = Math.round(num);
+               		num = num/Math.pow(10, dec);
+               		cad = new String(num);
+            	}
+         	}
+         	pos = cad.indexOf('.')
+ 
+         	if (pos < 0)
+         	{
+            	pos = cad.lentgh;
+         	}
+ 
+         	if (cad.substr(0,1)=='-' || cad.substr(0,1) == '+') 
+         	{
+            	signo = 4;
+         	}
+ 
+         	if (miles && pos > signo) 
+         	{
+            	do {
+               		expr = /([+-]?\d)(\d{3}[\.\,]\d*)/
+               		cad.match(expr)
+               		cad=cad.replace(expr, RegExp.$1+','+RegExp.$2);
+            	}
+ 
+            	while (cad.indexOf(',') > signo) 
+            	{
+            		if (dec <= 0) 
+            		{
+                  		cad = cad.replace(/\./,'');
+               		}
+            	}
+        	}
+        return cad;
+      	}
+    }//Fin del objeto oNumero:
+
+	//...............................................................................................		
+	//FUNCION QUE SALTA DENTRE LOS INPUT*/
+		$('input, button, select, a').keyup(function(e) {		
+			if (e.keyCode == 13) { 
+				obj= (this.id);
+				tb = parseInt($(this).attr("tabindex"));
+
+				if (obj=='usuario' && !($(this).val()=='')) 
+			  		$('[tabindex=' + (tb+1) + ']').focus();
+
+
+				if (obj=='password' && !($(this).val()==''))
+			  		$('[tabindex=' + (tb+1) + ']').focus();
+
+
+	
+		  		alert(b)
+		  	}	
+	    });
 
 	//...............................................................................................	
 	//FUNCION QUE HACE LOGIN AL USUARIO		
-	$('#login').on('click',function()
+	$('#loginbtn').on('click',function()
 	{
 	    try
 	    {
@@ -345,7 +480,7 @@ $(document).keypress(function( e ) {
 		                	$.trim(res[0][3]) +', '+$.trim(res[0][4]) + ',\n'+$.trim(res[0][5]));
 
 		                $('#concepto'). val($.trim(res[0][6]));
-		                $('#totalp').   val($.trim(res[0][7]));
+		                $('#totalp').   val(format_num($.trim(res[0][7])));
 
 		                $('#btnsalvaringreso').addClass( "ui-state-disabled" );
 		                $('#printrecibo').css('visibility', 'visible');
@@ -459,7 +594,7 @@ $(document).keypress(function( e ) {
 		nPrestamo  =$('#prestamo').val();
 		movimiento ='INGRESO'; concepto = $.trim($('#concepto').val()); vendedor='011'; Tipocredito = 1; 
 		descuen = 0, posteo = 1; nombre= $.trim(arcliente[1]); zona = $zona; 
-		dire = $.trim(arcliente[2]); tele=''; ciudad=''; clasifica = '01'; Efectivo = $('#totalp').val(); tarjeta = 0.00; 
+		dire = $.trim(arcliente[2]); tele=''; ciudad=''; clasifica = '01'; Efectivo = quitcoma_num($('#totalp').val()); tarjeta = 0.00; 
 		cheque = 0.00; descrip1='DESC.'; descrip2='DESC.'; conbal = 0; provincia = '01'; tasa1 = 2.30; tasa2 = 0.19; traspaso = 0.00; 
 		tipoingreso=0; rene=0; turno='A'; cajero='cajera'; secuencia = 0;
 
@@ -574,7 +709,13 @@ $(document).keypress(function( e ) {
 
 	//...............................................................................................			
 	//EVENTO QUE RECARGA LOS DATOS CON ENTER EN EL TEXT RECIBO
-	$("#recibo").bind("keypress", {}, keypressInBox);
+	$( "#recibo" ).on('blur',function(e)
+	{
+       	res= ceros(this.value,12) ;
+        CONSULTAPAGO(res)
+	});
+
+	/*$("#recibo").bind("keypress", {}, keypressInBox);
 
 	function keypressInBox(e) {
 	    var code = (e.keyCode ? e.keyCode : e.which);
@@ -585,9 +726,7 @@ $(document).keypress(function( e ) {
 	       	res= ceros(this.value,12) ;
 	        CONSULTAPAGO(res)
 	    }
-	};
-
-	
+	};*/
 
 	//...............................................................................................			
 	//EVENTO QUE SALVA LOS DATOS EN EL FORM INGRESO
@@ -614,245 +753,8 @@ $(document).keypress(function( e ) {
     	clearform();
 	});
 
-	//...............................................................................................		
-	/*FUNCION QUE RELLENA DE CEROS LOS CAMPOS*/
-	function ceros(numero,ceros) 
-	{			
-		dif = ceros - numero.length; 
-		insertar=0;
-		for(m=1; m < dif; m++)
-		{ 		  
-		  insertar += '0';
-		} 			
-	  	return insertar += numero; 
-	}
 
 
-	//...............................................................................................		
-	//FUNCION QUE DA FORMATO A LOS TOTALES*/
-    function format_num(valor)
-    {
-      	var nuevo_numero = new oNumero(valor);
-   		//alert(nuevo_numero.formato(2, true));
-   		return 	nuevo_numero.formato(2, true);
-    }
-    
-    function oNumero(numero)
-    {
-    	//Propiedades 
-        this.valor = numero || 0
-        this.dec = -1;
- 
-        //Métodos 
-    	this.formato = numFormat;
-    	this.ponValor = ponValor;
- 
-       //Definición de los métodos
-      	function ponValor(cad) 
-      	{
-        	if (cad =='-' || cad=='+') return
-        	if (cad.length ==0) return
-        	if (cad.indexOf('.') >=0)
-            	this.valor = parseFloat(cad);
-         	else
-            	this.valor = parseInt(cad);
-      	} 
- 
-      	function numFormat(dec, miles) 
-      	{
-        	var num = this.valor, signo=3, expr;
-        	var cad = ""+this.valor;
-        	var ceros = "", pos, pdec, i;
-        	for (i=0; i < dec; i++)
-        	{
-            	ceros += '0';
-         	}
-        	pos = cad.indexOf('.')
-        	
-        	if (pos < 0) {
-            	cad = cad+"."+ceros;
-         	} 
-         	else 
-         	{
-            	pdec = cad.length - pos -1;
- 
-            	if (pdec <= dec) 
-            	{
-                	for (i=0; i< (dec-pdec); i++) 
-                	{
-                		cad += '0';
-                	}
-            	} 
-            	else 
-            	{
-               		num = num*Math.pow(10, dec);
-               		num = Math.round(num);
-               		num = num/Math.pow(10, dec);
-               		cad = new String(num);
-            	}
-         	}
-         	pos = cad.indexOf('.')
- 
-         	if (pos < 0)
-         	{
-            	pos = cad.lentgh;
-         	}
- 
-         	if (cad.substr(0,1)=='-' || cad.substr(0,1) == '+') 
-         	{
-            	signo = 4;
-         	}
- 
-         	if (miles && pos > signo) 
-         	{
-            	do {
-               		expr = /([+-]?\d)(\d{3}[\.\,]\d*)/
-               		cad.match(expr)
-               		cad=cad.replace(expr, RegExp.$1+','+RegExp.$2);
-            	}
- 
-            	while (cad.indexOf(',') > signo) 
-            	{
-            		if (dec <= 0) 
-            		{
-                  		cad = cad.replace(/\./,'');
-               		}
-            	}
-        	}
-        return cad;
-      	}
-    }//Fin del objeto oNumero:
-
-
-})
-
-/*
-	$("#login2").click(function() {
-			//$.mobile.loading( 'show', {text: msgText, textVisible: textVisible,  theme: theme,  textonly: textonly,
-			$.mobile.loading('show',"b", "Cargando...");
-			//Do something lengthy here
-			setTimeout(function(){
-				doWork();
-				alert(22)
-			}, 50);
-
-	})
-
-function doWork(){
-		//Append a lot of paragraphs
-		for (var i = 0; i < 2000; i++) {
-			$("div[data-role=content]").append("<p>This is some long string</p>");
-		}
-		$("div[data-role=content]").trigger("refresh");
-		$.mobile.loading('hide');
-
-	}
-	
-
-
-
-			
-
-	$(function() {
-		$("#login").click(function() {
-			var fusuario  = CryptoJS.MD5($.trim($("#usuario").val())).toString();
-			var fpassword = CryptoJS.MD5($.trim($("#password").val())).toString();
-			
-			$("#usuario").val(" ");
-			$("#password").val(" ");
-			
-		    $.getJSON('http://localhost/app_estudent/www/php/respuesta.php',function(data){
-		     //$.getJSON('http://lyrstudios.com/apps/respuesta1.php',function(data){
-		     	console.log(JSON.stringify(data));
-
-		     	var sistema=" ";
-				for (var i = 0; i < data.length; i++) {
-					if ((fusuario == $.trim(data[i].Banda)) && (fpassword == $.trim(data[i].Cancion))){
-						//alert(data[i].ID+" , "+data[i].Banda+" , "+data[i].Cancion);
-						sistema=(data[i].Banda);
-						//$.mobile.changePage( "#menu", { transition: "slide"})
-						alert("Reporte enviado");
-						$.mobile.changePage( "#page5", { transition: "slideup", role:"dialog"});
-					}
-				}
-				if (sistema==" ") alert("Usuario O Contraseña incorrectos.."); 
-			});
-		});
-	});
-
-*/
-
-/*
-	$(function() {
-		$("#login").click(function() {
-			var fusuario = $("#usuario").val();
-				var fpassword = $("#password").val();
-			
-			$("#usuario").val(" ");
-			$("#password").val(" ");
-			
-			 $.ajax({type: "POST", 
-					url: "http://localhost/agregar.php",
-                  	data: ({nombre: fusuario, password: fpassword}),
-                  cache: false,
-                  dataType: "text",
-                  success: Enviamos
-                });
-			
-		});
-			
-		function Enviamos(data){       
-				alert(data+"Reporte enviado");
-				$.mobile.changePage( "#ingresos", { transition: "slideup", role:"dialog"});
-		}	
-	});
-
-
-
-
-$("#login").on("click",function(){
-	$('a[href*=#menu]').click();
-})
-
-var log=1;
-
-$(function(){
-	$('a[href*=#]').click(function() {
-		
-		//alert(this.hash+','+log);
-		//var $target = $(this.hash);
-		/*if (log>0) {
-			$('a[href*=#resumencxc]').click();
-		};
-    });
-});*/
-
-/*
-function doWork(){
-		//Append a lot of paragraphs
-		for (var i = 0; i < 4000; i++) {
-			$("div[data-role=content]").append("<p>This is some long string</p>");
-		}
-		$("div[data-role=content]").trigger("refresh");
-		$.mobile.loading('hide');
-
-	}
-	
-	$(document).on("pageinit", "#resumencxc", function(){
-		
-		$("#login2").click(function(){
-			
-			$.mobile.loading('show', {theme:"e", text:"Please wait...", textonly:true, textVisible: true});
-
-			//Do something lengthy here
-			setTimeout(function(){
-				doWork();
-				alert(22)
-			}, 50);
-
-		});
-	});*/
-
-//alert("me actualize");
+});
 
 
