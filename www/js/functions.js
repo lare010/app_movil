@@ -21,6 +21,20 @@ $(function()
 		//var $zona    = '';
 		var $zona    = '002';
 
+$('#pequeno').on('click',function(){
+	$('#table-custom-2').addClass( "ui-mini" );
+	//$('#table-custom-2').trigger("refresh");
+	$( '#table-custom-2' ).table( "refresh" );
+}) 
+
+
+$('#grande').on('click',function(){ 
+	$('#table-custom-2').removeClass( "ui-mini" );
+	$( '#table-custom-2' ).table( "refresh" );
+	//$('#table-custom-2').trigger("refresh");
+
+})   
+		
 
 	//...............................................................................................		
 	/*FUNCION QUE RELLENA DE CEROS LOS CAMPOS*/
