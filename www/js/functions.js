@@ -18,8 +18,8 @@ $(function()
 		var $asaldo  = 0;   //variable que controla el total a pagar
 		var $tiempoC = 0;
 		var ArrCheck = []; //array que guarda los datos de cada check pulsado
-		//var $zona    = '';
-		var $zona    = '002';
+		var $zona    = '';
+		//var $zona    = '002';
 
 $('#pequeno').on('click',function(){
 	$('#table-custom-2').addClass( "ui-mini" );
