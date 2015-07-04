@@ -2,8 +2,9 @@
 $(function() 
 {
 	//$SqlSrvCon = 'http://webserver1.no-ip.org/server/sqlsrv/sql.php';
-	$SqlSrvCon = 'http://192.168.1.6/server/sqlsrv/sql.php';
-	//$SqlSrvCon = 'http://localhost/server/sqlsrv/sql.php';
+	//$SqlSrvCon = 'http://192.168.1.6/server/sqlsrv/sql.php';
+
+	$SqlSrvCon = 'http://localhost/server/sqlsrv/sql.php';
 
 	//$SqlSrvCon = 'http://localhost/server/mysql/sql.php';
 	//$SqlSrvCon = 'http://lyrstudios.com/apps/sql.php';
@@ -17,7 +18,8 @@ $(function()
 		var $asaldo  = 0;   //variable que controla el total a pagar
 		var $tiempoC = 0;
 		var ArrCheck = []; //array que guarda los datos de cada check pulsado
-		var $zona    = '002';
+		var $zona    = '';
+		//var $zona    = '002';
 
 
 	//...............................................................................................		
@@ -143,25 +145,26 @@ $(function()
 	//FUNCION QUE SALTA DENTRE LOS INPUT*/
 		$('input, button, select, a').keyup(function(e) {		
 			if (e.keyCode == 13) { 
+				val=0;
 				obj= (this.id);
 				tb = parseInt($(this).attr("tabindex"));
 
-				if (obj=='usuario' && !($(this).val()=='')) 
+				if (obj=='usuario' && $(this).val()=='') val=1;
+
+				if (obj=='password' && $(this).val()=='') val=1;
+
+			  	if (val==0) 
+			  	{
 			  		$('[tabindex=' + (tb+1) + ']').focus();
-
-
-				if (obj=='password' && !($(this).val()==''))
-			  		$('[tabindex=' + (tb+1) + ']').focus();
-
-
+			  	};
 	
-		  		alert(b)
+		  		
 		  	}	
 	    });
 
 	//...............................................................................................	
 	//FUNCION QUE HACE LOGIN AL USUARIO		
-	$('#loginbtn').on('click',function()
+	$('#loginbtn').on('click focus',function()
 	{
 	    try
 	    {
@@ -207,7 +210,7 @@ $(function()
 						}
 						else if(res[0]==0)
 						{
-							alert("Usuario o Password\n incorrectos");
+							alert("Usuario o Password incorrectos");
 							$("#usuario").focus();					
 						}
 						else
@@ -709,24 +712,23 @@ $(function()
 
 	//...............................................................................................			
 	//EVENTO QUE RECARGA LOS DATOS CON ENTER EN EL TEXT RECIBO
-	$( "#recibo" ).on('blur',function(e)
-	{
-       	res= ceros(this.value,12) ;
-        CONSULTAPAGO(res)
-	});
+	$("#recibo").change(function()
+	{	
+		obj = this.value;
 
-	/*$("#recibo").bind("keypress", {}, keypressInBox);
+       	if (obj != '') 
+       	{
+	       	if (obj.length < 12) 
+	       	{
+	       		res= ceros(obj,12);
+	       	}
+	       	else
+	       		res = obj;
 
-	function keypressInBox(e) {
-	    var code = (e.keyCode ? e.keyCode : e.which);
-	    //alert(code)
-	    if (code == 13) 
-	    { //Enter keycode              
-	        e.preventDefault();
-	       	res= ceros(this.value,12) ;
+	        clearform();
 	        CONSULTAPAGO(res)
-	    }
-	};*/
+    	}
+	});
 
 	//...............................................................................................			
 	//EVENTO QUE SALVA LOS DATOS EN EL FORM INGRESO

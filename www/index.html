@@ -92,8 +92,8 @@
         <div data-role="header" data-position="fixed">
             <a href="#menu" data-transition="slide" data-direction="reverse" class=" ui-shadow ui-btn ui-corner-all ui-btn-a menu-movile"></a>
         	<h1><b>INGRESOS</b></h1> 
-            <a href="#busq_cliente" id="frmBusqCliente" data-icon="search" data-iconpos="notext" ></a>          
-            <a href="#" id="printrecibo" class="btnprint ui-shadow ui-btn ui-icon-save ui-corner-all ui-btn-a "></a>         
+            <a href="#busq_cliente" id="frmBusqCliente" data-icon="search" data-iconpos="notext" tabindex="5"></a>          
+            <a href="#" id="printrecibo" class="btnprint ui-shadow ui-btn ui-icon-save ui-corner-all ui-btn-a" ></a>         
         </div>
 
         <div data-role="content" > 
@@ -103,12 +103,12 @@
 				<ul data-role="listview" data-inset="true" >
 			            <li class="ui-field-contain">
 			                <label for="recibo">RECIBO:</label>
-			                <input type="number" min="1" max="12" name="recibo" id="recibo" value="" data-clear-btn="true" >
+			                <input type="number" min="1" max="12" name="recibo" id="recibo" value="" data-clear-btn="true" tabindex="4" >
 			            </li>
 
 			             <li class="ui-field-contain">
 			                <label for="prestamo">PRESTAMO:</label>
-			                <input type="text" name="prestamo" id="prestamo" value=""  disabled="true">
+			                <input type="text" name="prestamo" id="prestamo" value=""  disabled="true" >
 			            </li>
 
 			            <li class="ui-field-contain">
@@ -123,7 +123,7 @@
 
 			            <li class="ui-field-contain">
     						<div id="cuotasaldar">
-                              <fieldset data-role="controlgroup"  data-type="vertical" id="ListaCuotas"></fieldset>
+                              <fieldset data-role="controlgroup"  data-type="vertical" id="ListaCuotas" ></fieldset>
                             </div>
                         </li>
 			            
@@ -143,7 +143,7 @@
                                     <button type="button" id="btncalcelingreso" class="ui-btn ui-icon-delete ui-btn-icon-left ui-corner-all ui-btn-a">Cancel</button>
                                 </div>
 		                        <div class="ui-block-b">
-                                    <button type="button" id="btnsalvaringreso" class="ui-btn ui-icon-check ui-btn-icon-left ui-corner-all ui-btn-a">Salvar</button>
+                                    <button type="button" id="btnsalvaringreso" class="ui-btn ui-icon-check ui-btn-icon-left ui-corner-all ui-btn-a" >Salvar</button>
                                 </div>
 			                </fieldset>
 			            </li>
