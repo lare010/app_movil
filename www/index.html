@@ -49,7 +49,7 @@
         <div data-role="content">
             <ul data-role="listview">
                 <li><a href="#resumencxc" data-transition="slide">Clientes del día</a></li>
-                <li><a href="#" data-transition="slide">Estado de cuentas</a></li>
+                <li><a href="#estadocuentas" data-transition="slide">Estado de cuentas</a></li>
                 <li><a href="#ingresos" data-transition="slide">Recibos de Ingreso</a></li>
                 <li><a href="#home" data-transition="slide">Salir del Sistema</a></li> 
             </ul>          
@@ -86,13 +86,48 @@
         </div>
     </div>
 
+    <!--....................PAGINA ESTADO DE CUENTAS.....................-->
+    <div data-role="page" id="estadocuentas">
+        <div data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" data-theme="a" id="busq_cliente">
+            <form class="userform"> 
+                <a href="#" id="closepanel" data-rel="close" class="btnoff">Close panel</a>
+                <!--h4>Busqueda de Clientes</h4-->
+                <ul data-role="listview" id="ListaCliente" data-filter="true" data-filter-placeholder="Filtro de Clientes..." data-inset="true" >
+                </ul>
+            </form>        
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed">
+            <a href="#menu" data-transition="slide" data-direction="reverse" class=" ui-shadow ui-btn ui-corner-all ui-btn-a menu-movile"></a>
+            <h1><b>Estado de Cuentas</b></h1> 
+            <a href="#busq_cliente" class="frmBusqCliente" id="bqdcl"  data-icon="search" data-iconpos="notext" tabindex="6"></a>          
+        </div>
+
+        <div data-role="content">  
+        </div>
+
+
+        <div data-role="footer" data-position='fixed'>
+            <h4></h4>
+        </div>
+    </div>
+
 	<!--....................PAGINA RECIBO INGRESO.....................-->
 
     <div data-role="page" id="ingresos">
+        <div data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" data-theme="a" id="busq_cliente1">
+            <form class="userform"> 
+                <a href="#" id="closepanel1" data-rel="close" class="btnoff">Close panel</a>
+                <!--h4>Busqueda de Clientes</h4-->
+                <ul data-role="listview" id="ListaCliente1" data-filter="true" data-filter-placeholder="Filtro de Clientes..." data-inset="true" >
+                </ul>
+            </form>
+        </div><!-- /panel -->
+
         <div data-role="header" data-position="fixed">
             <a href="#menu" data-transition="slide" data-direction="reverse" class=" ui-shadow ui-btn ui-corner-all ui-btn-a menu-movile"></a>
         	<h1><b>INGRESOS</b></h1> 
-            <a href="#busq_cliente" id="frmBusqCliente" data-icon="search" data-iconpos="notext" tabindex="5"></a>          
+            <a href="#busq_cliente1" class="frmBusqCliente" id="bqdcl1"  data-icon="search" data-iconpos="notext" tabindex="5"></a>          
             <a href="#" id="printrecibo" class="btnprint ui-shadow ui-btn ui-icon-save ui-corner-all ui-btn-a" ></a>         
         </div>
 
@@ -179,19 +214,8 @@
         <div data-role="footer" data-position='fixed'>
             <h4></h4>
         </div>
-
-	<div data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" data-theme="a" id="busq_cliente">
-        <form class="userform"> 
-            <a href="#" id="closepanel" data-rel="close" class="btnoff">Close panel</a>
-        	<!--h4>Busqueda de Clientes</h4-->
-            <ul data-role="listview" id="ListaCliente" data-filter="true" data-filter-placeholder="Filtro de Clientes..." data-inset="true" >
-            </ul>
-           
-      </form>
-	</div><!-- /panel -->
-
-
     </div>	
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">

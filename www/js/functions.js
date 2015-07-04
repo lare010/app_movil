@@ -18,14 +18,14 @@ $(function()
 		var $asaldo  = 0;   //variable que controla el total a pagar
 		var $tiempoC = 0;
 		var ArrCheck = []; //array que guarda los datos de cada check pulsado
-		var $zona    = '';
-		//var $zona    = '002';
+		//var $zona    = '';
+		var $zona    = '002';
 
 
 	//...............................................................................................		
 	/*FUNCION QUE RELLENA DE CEROS LOS CAMPOS*/
 	function ceros(numero,ceros) 
-	{
+	{	
 		dif = ceros - numero.length; 
 		insertar=0;
 		for(m=1; m < dif; m++)
@@ -38,7 +38,7 @@ $(function()
 	/*FUNCION QUE QUITA LA COMA A LOS TOTALES*/
 
 	function quitcoma_num(valor)
-	{
+	{	
 	    var busca = ",";
 	 	var reemplaza = "";
 	 	while (valor.toString().indexOf(busca) != -1)
@@ -49,14 +49,14 @@ $(function()
 	//...............................................................................................		
 	//FUNCION QUE DA FORMATO A LOS TOTALES*/
     function format_num(valor)
-    {
+    {	
       	var nuevo_numero = new oNumero(valor);
    		//alert(nuevo_numero.formato(2, true));
    		return 	nuevo_numero.formato(2, true);
     }
     
     function oNumero(numero)
-    {
+    {	
     	//Propiedades 
         this.valor = numero || 0
         this.dec = -1;
@@ -143,29 +143,29 @@ $(function()
 
 	//...............................................................................................		
 	//FUNCION QUE SALTA DENTRE LOS INPUT*/
-		$('input, button, select, a').keyup(function(e) {		
-			if (e.keyCode == 13) { 
-				val=0;
-				obj= (this.id);
-				tb = parseInt($(this).attr("tabindex"));
+	$('input, button, select, a').keyup(function(e) 
+	{	
+		if (e.keyCode == 13) 
+		{ 
+			val=0;
+			obj= (this.id);
+			tb = parseInt($(this).attr("tabindex"));
 
-				if (obj=='usuario' && $(this).val()=='') val=1;
+			if (obj=='usuario' && $(this).val()=='') val=1;
 
-				if (obj=='password' && $(this).val()=='') val=1;
+			if (obj=='password' && $(this).val()=='') val=1;
 
-			  	if (val==0) 
-			  	{
-			  		$('[tabindex=' + (tb+1) + ']').focus();
-			  	};
-	
-		  		
-		  	}	
-	    });
+		  	if (val==0) 
+		  	{
+		  		$('[tabindex=' + (tb+1) + ']').focus();
+		  	};
+	  	}	
+    });
 
 	//...............................................................................................	
 	//FUNCION QUE HACE LOGIN AL USUARIO		
 	$('#loginbtn').on('click focus',function()
-	{
+	{	
 	    try
 	    {
 			var us= $.trim($("#usuario").val());
@@ -228,7 +228,7 @@ $(function()
 	//...............................................................................................
 	//FUNCION QUE BUSCA LOS CLIENTES PENDIENTES*/
 	$('#btnCpendiente').on('click',function()
-	{
+	{	
 	    try
 	    {
 	        $.mobile.loading('show',"b", "Cargando...");
@@ -287,10 +287,20 @@ $(function()
 	//...............................................................................................	
 	//FUNCION QUE BUSCA LOS CLIENTES DEL PROMOTOR*/
 
-	$('#frmBusqCliente').on('click',function()
-	{
+	$('.frmBusqCliente').on('click',function()
+	{	
+
 	    try
 	    {
+			panel= this.id;
+			nPanel='';	        
+	        if ($.trim(panel)=='bqdcl1') 
+	        {
+	        	nPanel='ListaCliente1';
+	        }
+	        else
+	        	nPanel='ListaCliente';
+
 	        $.mobile.loading('show',"b", "Cargando...");
 
 			$.ajax({
@@ -307,12 +317,12 @@ $(function()
 					
 					if ($.trim(res[0][0]) == 0) //SI ES 0 NO TRAJO REGISTROS
 					{
- 						$("#ListaCliente").html(null);
+ 						$("#"+nPanel).html(null);
 						alert('No hay registros para esta consulta.');
 					} 
 					else if ($.trim(res[0][0]) == 1) //SI ES 1 ES UN ERROR
 					{
- 						$("#ListaCliente").html(null);
+ 						$("#"+nPanel).html(null);
 						alert(res);
 					}
 					else
@@ -331,8 +341,8 @@ $(function()
 
 		                }); 
 
-		                $("#ListaCliente").html(lista);
-		                $("#ListaCliente").listview().listview('refresh');
+		                $("#"+nPanel).html(lista);
+		                $("#"+nPanel).listview().listview('refresh');
 
 					}					
 			    }
@@ -350,7 +360,7 @@ $(function()
 	//FUNCION QUE CARGA TABLA DEL CLIENTE PARA HACER PAGOS*/
 
 	function TABLAPAGO(doc)
-	{
+	{	
 	    try
 	    {
 	        //alert('document= '+doc);return
@@ -445,7 +455,7 @@ $(function()
 	//FUNCION QUE CARGA TABLA DEL CLIENTE PARA HACER PAGOS*/
 
 	function CONSULTAPAGO(doc)
-	{
+	{	
 	    try
 	    {
 	        //alert(doc);return
@@ -529,7 +539,7 @@ $(function()
 	//FUNCION QUE MANEJA LOS CALCULOS Y ESTADOS DE LOS CHECK EN EL FORM INGRESO
 
 	$(document).on('change', 'input[type="checkbox"]', function() 
-	{
+	{	
 	    idcheck = (this.id); //captura el id del check pulsado
 
 	    cntlbcheck = $("label[for='"+idcheck+"']"); //captura todo el label del obj check
@@ -578,7 +588,7 @@ $(function()
 	ArrCxcMenc = [];
  
 	function recogecheck() 
-	{ 	
+	{	
 		
 		ArrCxcMenc   = []; //array que guarda los datos a salvar en cxcmovi1_Ingreso
 		ArrCxcdet1   = []; //array que guarda los datos a salvar en cxcdetalle1
@@ -678,7 +688,7 @@ $(function()
 	//...............................................................................................			
 	//FUNCION QUE LIMPIA EL FORMULARIO
 	function clearform() 
-	{
+	{	
 		$("#ListaCuotas").html(null);
 		$("#concepto").html(null);
 		$('#printrecibo').css('visibility', 'hidden');
@@ -702,13 +712,20 @@ $(function()
 	});
 	
 	//...............................................................................................			
-	//EVENTO QUE CIEERA EL PANEL Y CARGA LOS DATOS EN EL FORM INGRESO
+	//EVENTO QUE CIEERA EL PANEL Y CARGA LOS DATOS EN EL FORM ESTADO DE CUENTAS
     $('#ListaCliente').on('click','li',function()
     {	
-	   $('#closepanel' ).click();
-	   	TABLAPAGO(this.id);
+	   //$('#closepanel' ).click();
+	   	//TABLAPAGO(this.id);
 	});
-	
+
+	//...............................................................................................			
+	//EVENTO QUE CIEERA EL PANEL Y CARGA LOS DATOS EN EL FORM INGRESO
+    $('#ListaCliente1').on('click','li',function()
+    {	
+	   $('#closepanel1' ).click();
+	   	TABLAPAGO(this.id);
+	});	
 
 	//...............................................................................................			
 	//EVENTO QUE RECARGA LOS DATOS CON ENTER EN EL TEXT RECIBO
@@ -742,7 +759,8 @@ $(function()
 
 	//...............................................................................................			
 	//EVENTO QUE LOS DATOS DEL FORM INGRESO CUANDO SE QUITA EL NO DE RECIVO
-	$(document).on('click', '.ui-input-clear', function () {
+	$(document).on('click', '.ui-input-clear', function () 
+	{	
 	  var input = $(this).prev("input")[0].id;
 	  if (input=='recibo') clearform();
 
