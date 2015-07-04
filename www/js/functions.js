@@ -2,9 +2,9 @@
 $(function() 
 {
 	//$SqlSrvCon = 'http://webserver1.no-ip.org/server/sqlsrv/sql.php';
-	//$SqlSrvCon = 'http://192.168.1.6/server/sqlsrv/sql.php';
+	$SqlSrvCon = 'http://192.168.1.6/server/sqlsrv/sql.php';
 
-	$SqlSrvCon = 'http://localhost/server/sqlsrv/sql.php';
+	//$SqlSrvCon = 'http://localhost/server/sqlsrv/sql.php';
 
 	//$SqlSrvCon = 'http://localhost/server/mysql/sql.php';
 	//$SqlSrvCon = 'http://lyrstudios.com/apps/sql.php';
